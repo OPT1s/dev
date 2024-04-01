@@ -10,6 +10,7 @@ STR;
 
 $entrypoint = getenv('TRACKER_ENTRYPOINT');
 $apiKey = getenv('TRACKER_API_KEY');
+$createApiKey = getenv('TRACKER_API_KEY_FOR_CREATE');
 
 if (empty($entrypoint) || empty($apiKey)) {
     throw new RuntimeException("Cant find entrypoint and api key in environment");
@@ -89,7 +90,7 @@ foreach ($lands as $page => $landId) {
 }
 
 $data = [
-    'api_key' => $apiKey,
+    'api_key' => !empty($createApiKey) ? $createApiKey : $apiKey,
     'action' => 'campaign@add',
     'payload' => [
         'name' => $domain,
