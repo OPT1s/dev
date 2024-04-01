@@ -49,6 +49,7 @@ function sendRequest(string $entrypoint, string $method, array $data): array
 
 $entrypoint = getenv('TRACKER_ENTRYPOINT');
 $apiKey = getenv('TRACKER_API_KEY');
+$createApiKey = getenv('TRACKER_API_KEY_FOR_CREATE');
 
 if ($argc < 3) {
     usage();
@@ -93,7 +94,7 @@ foreach ($lands as $page => $path) {
     }
 
     $data = [
-        'api_key' => $apiKey,
+        'api_key' => !empty($createApiKey) ? $createApiKey : $apiKey,
         'action' => 'landing@add',
         'payload' => [
             'name' => $name,
@@ -125,7 +126,7 @@ foreach ($lands as $page => $path) {
 
         if (empty($groupId)) {
             $groupData = sendRequest($entrypoint, 'POST', [
-                'api_key' => $apiKey,
+                'api_key' => !empty($createApiKey) ? $createApiKey : $apiKey,
                 'action' => 'group@add',
                 'payload' => [
                     'name' => $domain,
@@ -136,7 +137,7 @@ foreach ($lands as $page => $path) {
         }
 
         $editData = [
-            'api_key' => $apiKey,
+            'api_key' => !empty($createApiKey) ? $createApiKey : $apiKey,
             'action' => 'landing@edit',
             'payload' => [
                 'id' => $id,
