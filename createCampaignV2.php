@@ -197,7 +197,7 @@ if ($accessForUserId > 0) {
 // END GRANT OF ACCESS TO THE USER
 
 // function for send request
-function sendRequest(string $entrypoint, string $method, mixed $data, string $apiKey): array
+function sendRequest(string $entrypoint, string $method, $data, string $apiKey): array
 {
     if ($method === 'GET') {
         $url = "{$entrypoint}?" . http_build_query($data === "" ? [] : $data);
