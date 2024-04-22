@@ -89,6 +89,7 @@ $landingIndex = sendRequest(
 // create campaign array
 $campaign =  [
     "name" => $domain,
+    "key" => $keyword,
     "trafficSourceId" => $GATraffic["id"],
     "costModel" => "CPC",
     "currency" => "USD",
